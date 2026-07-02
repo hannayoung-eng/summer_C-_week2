@@ -17,7 +17,7 @@ namespace hannayoung2693327
         }
         void print(){
             wakeTime.print();
-            std::cout << " alarm is " << ((inActive)? "ON" : "OFF")<<".\n";
+            std::cout << " alarm is " << ((inActive)? "on" : "off")<<".\n";
         }
         const timeOfDay& getWakeTime() { return wakeTime;}
         void setWakeTime(const timeOfDay& t){wakeTime =t;}
