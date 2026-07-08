@@ -7,27 +7,52 @@ namespace hannayoung2693327
         for(int i =0; i<n;++i)
         std::cout <<a[i];
     }
+    void parVal(timeOfDay v){v+=1;}
+    void parRef(timeOfDay& r){r+=1;}
+    void parPtr(timeOfDay* p){*p+=1;}
+    timeOfDay retVal(timeOfDay v){v+=1; return v;}
+    timeOfDay& retRef(timeOfDay& r){r+=1; return r;}
+    timeOfDay* retPtr(timeOfDay* p){*p+=1; return p;}
 }
 
 int main()
     {
         using namespace hannayoung2693327;
-        const int n{4};
-        alarm a[n];
-        a[0]=alarm{"morning", {5,30},1};
-        a[1].setName("class");
-        a[1].setWakeTime({9,0});
-        a[1].setActive(1);
-        a[1].print();
+
+        timeOfDay val{11,59}; std::cout <<val<<" ";
+        parVal(val); std::cout << val << "\n";
+        timeOfDay& ref{val}; std::cout << ref << " ";
+        parRef(ref); std::cout << ref <<"\n";
+        timeOfDay* ptr{&val}; std::cout << *ptr <<" ";
+        parPtr(ptr); std::cout << *ptr<<"\n";
+
+        val = timeOfDay{15,30}; 
+        std::cout << val <<" "<<retVal(val)<<"\n";
+        std::cout << ref <<" "<<retRef(ref)<<"\n";
+        std::cout <<*ptr <<" "<<*retPtr(ptr)<<"\n";
+
+        timeOfDay* tPtr{new timeOfDay};
+        tPtr -> setHour(18);
+        tPtr -> setMinute(30);
+        std::cout <<*tPtr<<std::endl;
+        delete tPtr;
+
+        // const int n{4};
+        // alarm a[n];
+        // a[0]=alarm{"morning", {5,30},1};
+        // a[1].setName("class");
+        // a[1].setWakeTime({9,0});
+        // a[1].setActive(1);
+        // a[1].print();
         // a[2].input();
         // a[2].print();
-        std::cin >>a[3];
-        printAlarmArray(a,n);
-        std::array<alarm, n> b;
-        for (int i =0;i<b.size();++i)
-            b.at(i) = a[1];
-        for (const auto& bi : b)
-            bi.print();
+        // std::cin >>a[3];
+        // printAlarmArray(a,n);
+        // std::array<alarm, n> b;
+        // for (int i =0;i<b.size();++i)
+        //     b.at(i) = a[1];
+        // for (const auto& bi : b)
+        //     bi.print();
         // timeOfDay t1, t2;
         // std::cin >>t1>>t2;
         // std::cout <<t1<<" "<<t2<<'\n';
@@ -40,11 +65,5 @@ int main()
         // std::cout << t1+t2<<std::endl;
         return 0;
 
-        // alarm a1;
-        // a1.print();
-        // alarm a2{timeOfDay{11,44},1};
-        // a2.print();
-        // if (compareTimeOfDay(a1.getWakeTime(),a2.getWakeTime()))
-        // std::cout<<"same\n";
-        // else std::cout<<"different\n";
+        
     }

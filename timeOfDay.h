@@ -51,20 +51,25 @@ namespace hannayoung2693327
         int getHour() const {return hour;}
         int getMinute() const {return minute;}
 
-        timeOfDay operator++()
+        timeOfDay& operator++()
         {
             ++minute; //0-59
             if (minute ==60) {minute =0; ++hour;}//0-23
-            if (hour ==24) {hour=0; }
-            return timeOfDay {hour, minute};
+            if (hour ==24) {hour%=24; }
+            return *this;
         }
-        timeOfDay operator++(int)
+        timeOfDay operator++(int) //this
         {
-            timeOfDay temp(hour, minute);
-            ++minute; //0-59
-            if (minute ==60) {minute =0; ++hour;}//0-23
-            if (hour ==24) {hour=0; }
+            timeOfDay temp{*this};
+            ++(*this);
             return temp;
+        }
+        timeOfDay& operator+= (int m)
+        {
+            minute += m;
+            if (minute >=60) {hour+= minute/60; minute %=60;}//0-23
+            if (hour >=24) {hour%=24; }
+            return *this;
         }
         friend std::istream& operator >>(std::istream& is, timeOfDay& t)
         {
@@ -92,7 +97,7 @@ namespace hannayoung2693327
             
             int newMinute{totalMinute%60};
             int newHour{totalMinute /60};
-            if(newHour >24) newHour %= 24 ;
+            if(newHour >=24) newHour %= 24 ;
             return timeOfDay{newHour, newMinute};
         }
     };
